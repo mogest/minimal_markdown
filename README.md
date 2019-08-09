@@ -25,5 +25,12 @@ Add to your app:
 
 ```
 MinimalMarkdown.render('Here is my *markdown*')
+=> "<div>Here is my <i>markdown</i></div>"
+```
+
+Or use the Slack-style Markdown parser by passing an option:
+
+```
+MinimalMarkdown.render('Here is my *markdown*', style: :slack)
 => "<div>Here is my <b>markdown</b></div>"
 ```

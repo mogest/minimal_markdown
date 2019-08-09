@@ -1,5 +1,8 @@
 module MinimalMarkdown::Parsers
   class UnorderedList
+    def initialize(style)
+    end
+
     def multiline?
       true
     end
@@ -19,7 +22,7 @@ module MinimalMarkdown::Parsers
     def update_text(input)
       out = []
 
-      while result = input.match(/(?:^[ ]*\*[ ]+[^\n]+(?:\n|$))+/m)
+      while result = input.match(/(?:^[ ]*[*+-][ ]+[^\n]+(?:\n|$))+/m)
         out << result.pre_match unless result.pre_match.empty?
 
         children = result[0].split("\n").map do |line|

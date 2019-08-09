@@ -19,8 +19,8 @@ module MinimalMarkdown::Parsers
           input = node.text
           while result = input.match(@regex)
             out << ::MinimalMarkdown::Nodes::Text.new(result.pre_match + result[1]) unless result.pre_match.empty?
-            out << @node_class.new(::MinimalMarkdown::Nodes::Text.new(result[2]))
-            input = result[3] + result.post_match
+            out << @node_class.new(::MinimalMarkdown::Nodes::Text.new(result[3]))
+            input = result[4] + result.post_match
           end
 
           if !out.empty?

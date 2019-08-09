@@ -1,5 +1,3 @@
-require 'cgi'
-
 module MinimalMarkdown
   class Parser
     DEFAULT_PARSERS = [
@@ -8,17 +6,22 @@ module MinimalMarkdown
       Parsers::Italic,
     ]
 
+    STYLES = [:markdown, :slack]
+
     attr_reader :text, :parsers
 
-    def initialize(text, parsers: DEFAULT_PARSERS)
+    def initialize(text, style: :markdown, parsers: DEFAULT_PARSERS)
+      raise ArgumentError, 'invalid style' unless STYLES.include?(style)
+
       @text = text
+      @style = style
       @parsers = parsers
     end
 
     def parse
       prepared_text = text.strip.gsub("\r", "")
 
-      preline_parsers, postline_parsers = parsers.map(&:new).partition(&:multiline?)
+      preline_parsers, postline_parsers = parsers.map { |parser| parser.new(@style) }.partition(&:multiline?)
 
       preline_tree = run_parsers(preline_parsers, [prepared_text])
       postline_tree = convert_to_lines(preline_tree)
