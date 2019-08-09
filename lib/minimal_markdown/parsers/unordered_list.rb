@@ -26,7 +26,7 @@ module MinimalMarkdown::Parsers
         out << result.pre_match unless result.pre_match.empty?
 
         children = result[0].split("\n").map do |line|
-          ::MinimalMarkdown::Nodes::Text.new(line.gsub(/^\s*\*\s+/, ''))
+          ::MinimalMarkdown::Nodes::Text.new(line.sub(/^\s*[*+-]\s+/, ''))
         end
         out << ::MinimalMarkdown::Nodes::UnorderedList.new(children)
 

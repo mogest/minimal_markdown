@@ -36,6 +36,9 @@ describe MinimalMarkdown do
     '**start** line' => '<div><b>start</b> line</div>',
     "\n\n  strips\n\n\n   " => '<div>strips</div>',
     "&" => '<div>&amp;</div>',
+    "- 1\n- 2\n- 3\n" => '<ul><li>1</li><li>2</li><li>3</li></ul>',
+    "+ 1\n+ 2\n+ 3\n" => '<ul><li>1</li><li>2</li><li>3</li></ul>',
+    "* 1\n- 2\n+ 3\n" => '<ul><li>1</li><li>2</li><li>3</li></ul>',
     "* 1\n* 2\n\n* 3\n" => '<ul><li>1</li><li>2</li></ul><ul><li>3</li></ul>',
     "* 1\n* 2\nwait a little\n\n* 3\n" => '<ul><li>1</li><li>2</li></ul><p>wait a little</p><ul><li>3</li></ul>',
   }
